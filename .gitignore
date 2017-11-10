@@ -1,0 +1,3 @@
+**.retry
+# all examples contain values ended in -aw to easily avoid pushing them into the repo
+*-aw

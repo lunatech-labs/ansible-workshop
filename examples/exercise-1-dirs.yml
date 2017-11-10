@@ -1,0 +1,15 @@
+---
+# Create a playbook that creates a folder in the current directory, and copies a random file to the newly created folder.
+# Run it with: ansible-playbook exercise-1-dirs.yml -v
+- hosts: localhost
+  tasks:
+    - name: Create a folder in the current directory
+      file:
+        path: "./foo-aw"
+        state: directory
+
+    # File /tmp/bar-aw must exist
+    - name: Copy /tmp/bar-aw to ./foo-aw
+      copy:
+        src: "/tmp/bar-aw"
+        dest: "./foo-aw"

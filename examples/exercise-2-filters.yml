@@ -1,0 +1,39 @@
+---
+# Given the variable user_data, write a set of tasks which perform the following actions
+# Run it with: ansible-playbook exercise-1-filters.yml -v
+- hosts: all
+  vars:
+    user_data:
+      name: Maria Dominguez
+      job: Developer
+      joined: 2015
+      employed: true
+      offices:
+        - Amsterdam
+        - Rotterdam
+      technologies:
+        scala: advanced
+        ansible: advanced
+        aws: novice
+      career: |
+          Machine learning & Spark
+          Scala, Akka & DevOps
+
+  tasks:
+    - name: Save the user_data as json in /tmp/user-aw
+      copy:
+        content: "{{ user_data | to_json }}"
+        dest: /tmp/user-aw
+
+    - name: Extract the level of scala and save it to a variable
+      set_fact:
+        scala_fact: "{{ user_data.technologies['scala'] }}"
+
+    - name: If the level of scala is advanced, print career.
+      debug: msg={{ (scala_fact | lower == "advanced") | ternary(user_data.career, '') }}
+
+    - name: Extract the level of a not given technology and provide a default message instead.
+      debug: msg={{ user_data.technologies['java'] | default('not defined') }}
+
+    - name: Check if Leiden is one of the offices.
+      debug: msg={{ user_data.offices == "Leiden" }}
