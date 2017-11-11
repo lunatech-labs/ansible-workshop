@@ -1,0 +1,6 @@
+---
+- name: Copy configuration to the host
+  template:
+    src: "../templates/app.conf.j2"
+    dest: "/tmp/app.conf"
+    mode: 0644
