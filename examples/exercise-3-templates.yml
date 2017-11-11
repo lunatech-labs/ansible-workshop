@@ -1,0 +1,27 @@
+---
+# Using templates, create a playbook that generates a configuration file kafka.conf with the format below and places it under /tmp/kafka/conf/
+#       bootstrap_server: localhost
+#       port: 9092
+#       topic: test-topic
+#       replication_factor: 3
+# Rules:
+# - ensure that bootstrap_server, port and topic are present (replication_factor is optional, and should appear in the file only if it is defined).
+# - bootstrap_server must appear in lowercase.
+
+# Run it with: ansible-playbook exercise-3-templates.yml -v
+- hosts: localhost
+  vars:
+    bootstrap_server_name: "localhost"
+    bootstrap_server_port: "9092"
+    topic: "test-topic"
+    # replication_factor: "3" # we keep this commented out to force that it is not defined. Try it both, with it and without it commented out
+  tasks:
+    - name: Create directory
+      file:
+        path: "/tmp/kafka/conf"
+        state: directory
+
+    - name: Copy configuration to directory
+      template:
+        src: "exercise-3-kafka.conf.j2"
+        dest: "/tmp/kafka/conf/kafka.conf"
