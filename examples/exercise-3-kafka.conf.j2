@@ -1,0 +1,4 @@
+bootstrap_server: {{ bootstrap_server_name | mandatory | lower }}
+port: {{ bootstrap_server_port | mandatory }}
+topic: {{ topic | mandatory }}
+{% if replication_factor is defined %}replication_factor: {{ replication_factor }}{% endif %}
