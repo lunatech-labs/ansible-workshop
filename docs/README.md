@@ -436,15 +436,12 @@ If a specific task need to be performed equally in more than one case, we can us
   tasks:
     - name: Print all elements in the list
       command: echo {{ item }}
-      with_items: [0, 2, 4, 6, 8, 10]
+      loop: [0, 2, 4, 6, 8, 10]
 ```
 
-There are many variants of `with_items`, based on the type of data that we are managing. Among the most common:
-- `with_dict`
-- `with_file`
-- `with_together`
-- `with_lines`
-- `with_first_found`
+There are many options for `loop`, based on the type of data that we are managing:
+- `loop: "{{ list_of_items }}"`
+- `loop: "{{ dictionary_with_objects | dict2items }}"`
 
 Take a look at http://docs.ansible.com/ansible/latest/playbooks_loops.html to find all the possible looping options.
 
